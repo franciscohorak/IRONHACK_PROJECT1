@@ -1,0 +1,18 @@
+canvas {
+    float: right;
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    border-image: initial;
+}
+.startButton {
+    color: darkgreen;
+    font-size: 20px;
+    font-family: sans-serif;
+    flex-direction: row;
+    margin-top: 100px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: green;
+    border-image: initial;
+}
