@@ -22,14 +22,62 @@ class Obstacles {
 
     }
     draw() {
-        this.context.beginPath();
-        this.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
-        this.context.lineWidth = 3;
-        this.context.fillStyle = "red";
-        this.context.fill();
-        this.context.strokeStyle = '#FF0000';
-        this.context.stroke();
-
+        if (this.r == 8) {
+            this.context.save()
+            this.context.beginPath();
+            this.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+            this.context.lineWidth = 3;
+            let virusParticle = new Image();
+            virusParticle.src = "images&icons/coronavirus (16).png"
+            this.context.fillStyle = "white";
+            this.context.fill();
+            this.context.strokeStyle = 'white';
+            this.context.stroke();
+            this.context.drawImage(virusParticle, this.x - this.r, this.y - this.r)
+            this.context.restore();
+        }
+        if (this.r == 12) {
+            this.context.save()
+            this.context.beginPath();
+            this.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+            this.context.lineWidth = 3;
+            let virusParticle = new Image();
+            virusParticle.src = "images&icons/coronavirus (24).png"
+            this.context.fillStyle = "white";
+            this.context.fill();
+            this.context.strokeStyle = 'white';
+            this.context.stroke();
+            this.context.drawImage(virusParticle, this.x - this.r, this.y - this.r)
+            this.context.restore();
+        }
+        if (this.r == 16) {
+            this.context.save()
+            this.context.beginPath();
+            this.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+            this.context.lineWidth = 3;
+            let virusParticle = new Image();
+            virusParticle.src = "images&icons/coronavirus(32).png";
+            this.context.fillStyle = "white";
+            this.context.fill();
+            this.context.strokeStyle = 'white';
+            this.context.stroke();
+            this.context.drawImage(virusParticle, this.x - this.r, this.y - this.r)
+            this.context.restore();
+        }
+        if (this.r == 32) {
+            this.context.save()
+            this.context.beginPath();
+            this.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+            this.context.lineWidth = 3;
+            let virusParticle = new Image();
+            virusParticle.src = "images&icons/coronavirus(64).png"
+            this.context.fillStyle = "white";
+            this.context.fill();
+            this.context.strokeStyle = 'white';
+            this.context.stroke();
+            this.context.drawImage(virusParticle, this.x - this.r, this.y - this.r)
+            this.context.restore();
+        }
     }
 
     bouncingWalls() {

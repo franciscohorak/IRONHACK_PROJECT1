@@ -11,10 +11,62 @@ class Game {
         this.itemsAvailable = []
         this.animationId;
         this.frame = 0;
-        this.starsLeft = 2;
-        this.currentLevel = 2;
+        this.seconds = 0;
+        // this.currentLevel = 2;
         this.gameOn = true;
         this.extraLives = 1;
+        this.particlesSizes = [8, 12, 16, 16, 16, 32, 32]
+    }
+
+    instructions() {
+        this.context.save();
+        this.context.font = "20px Monoton";
+        this.context.fillText(`SURVIVE THE OUTBREAK!`, 190, 40);
+        this.context.fillText(`Don't get infected by the virus!`, 150, 80);
+        this.context.restore()
+        this.context.font = "20px Montserrat";
+        this.context.fillText(`Use the ARROW keys to move the player`, 80, 120);
+        this.context.fillText(`Watch out for the items:`, 80, 170)
+        let keyboardArrows = new Image();
+        keyboardArrows.src = "images&icons/hiclipart.com.png"
+        keyboardArrows.onload = () => this.context.drawImage(keyboardArrows, 500, 110)
+        let speedIcon = new Image();
+        speedIcon.src = "images&icons/energia.png"
+        speedIcon.onload = () => this.context.drawImage(speedIcon, 40, 200);
+        this.context.save()
+        this.context.fillStyle = "#FFE527"
+        this.context.fillText(`Catch the lightening for extra speed`, 80, 220)
+        this.context.restore();
+        let vaccineIcon = new Image();
+        vaccineIcon.src = "images&icons/vaccine.png"
+        vaccineIcon.onload = () => this.context.drawImage(vaccineIcon, 40, 250)
+        this.context.save()
+        this.context.fillStyle = "#4B6675"
+        this.context.fillText(`The vacine will get rid of all particles. Just for a few seconds`, 80, 270)
+        this.context.restore();
+        let extraParticleIcon = new Image();
+        extraParticleIcon.src = "images&icons/attention.png";
+        extraParticleIcon.onload = () => this.context.drawImage(extraParticleIcon, 40, 300);
+        this.context.save()
+        this.context.fillStyle = "#B7305D"
+        this.context.fillText(`Carefull! This mutates the virus and will add more particles`, 80, 320)
+        this.context.restore();
+        let coughIcon = new Image();
+        coughIcon.src = "images&icons/cough.png";
+        coughIcon.onload = () => this.context.drawImage(coughIcon, 40, 350);
+        this.context.save()
+        this.context.fillStyle = "#FFC69F"
+        this.context.fillText(`Watch-out for people coughing.`, 80, 370)
+        this.context.restore();
+        let sanitizerIcon = new Image();
+        sanitizerIcon.src = "images&icons/antibacterial-gel.png";
+        sanitizerIcon.onload = () => this.context.drawImage(sanitizerIcon, 40, 400);
+        this.context.save()
+        this.context.fillStyle = "#00B1FF"
+        this.context.fillText(`The sanitizer will help you kill one particle `, 80, 420)
+        this.context.restore()
+        this.context.fillText(`Press the SPACEBAR to start`, 190, 480)
+
     }
     start() {
         this.animation();
@@ -47,7 +99,7 @@ class Game {
         for (let i = 0; this.obstacles.length < this.ballsInPlay; i++) {
             let x = Math.random() * this.width;
             let y = Math.random() * this.height;
-            let r = Math.random() * 40
+            let r = this.particlesSizes[Math.floor(Math.random() * this.particlesSizes.length)]
             if (i !== 0) {
                 for (let j = 0; j < this.obstacles.length; j++) {
                     if (this.getDistance(this.x, this.y, this.obstacles[j].x, this.obstacles[j].y) - this.r * 2 < 0) { // so that when launching a new ball into the game, it doesn't appear in the same x and y position of a ball already in the canvas
@@ -72,21 +124,30 @@ class Game {
         if (this.frame % 100 == 0) {
             this.launchBall();
         }
-        if (this.frame % 600 == 0) {
+        if (this.frame % 500 == 0) {
             this.ballsInPlay++
             this.launchItem()
+        }
+        if (this.frame % 700 == 0) {
+            this.ballsInPlay++;
+            this.launchItem();
         }
         if (this.frame % 800 == 0) {
             this.ballsInPlay++
         }
-
+        this.timeCount();
         this.checkForItem();
         this.checkPlayerCrash();
+    }
+    timeCount() {
+        this.seconds += 1
+        this.counter = document.getElementsByClassName("time-count")[0];
+        this.counter.innerHTML = Math.round(this.seconds / 100)
     }
 
     getDistance(x1, y1, x2, y2) {
         let xDistance = x2 - x1;
-        let yDistance = y2 - y1
+        let yDistance = y2 - y1;
         return Math.sqrt((Math.pow(xDistance, 2) + Math.pow(yDistance, 2)))
     }
     checkForItem() {
@@ -118,17 +179,21 @@ class Game {
                     this.ballsInPlay += 1 //this.itemsAvailable[i].type.value;
                     break;
                 }
-                if (this.itemsAvailable[i].type.name == "Food") {
+                if (this.itemsAvailable[i].type.name == "cough") {
                     console.log('Ups. Carefull!');
                     this.itemsAvailable.splice(i);
-                    this.player.r += 8; //this.itemsAvailable[i].type.value;
+                    if (this.player.r == 66) {
+                        this.player.r += 1;
+                    } else {
+                        this.player.r += 3; //this.itemsAvailable[i].type.value;
+                    }
                     break;
                 }
-                if (this.itemsAvailable[i].type.name == "Star") {
-                    console.log(`Congrats! ${this.starsLeft} to move to the next level`);
+                if (this.itemsAvailable[i].type.name == "clear") {
+                    console.log('Ups. Carefull!');
                     this.itemsAvailable.splice(i);
-                    this.starsLeft--;
-                    console.log(`Congrats! ${this.starsLeft} to move to the next level`);
+                    this.ballsInPlay = 0;
+                    this.obstacles = []; //this.itemsAvailable[i].type.value;
                     break;
                 }
             }
@@ -150,35 +215,38 @@ class Game {
         }
     }
 
-    nextLevel() {
-        this.gameOn = true;
-        this.context.clearRect(0, 0, this.width, this.height)
-        this.context.fillRect(0, 0, this.width, 40)
-        this.context.fillStyle = "green";
-    }
 
     gameOver() {
+        this.context.save()
         this.gameOn = false
+        let gameOverIcon = new Image();
+        gameOverIcon.src = "images&icons/Face With Thermometer Emoji (80).png"
+        gameOverIcon.onload = () => this.context.drawImage(gameOverIcon, 300, this.height / 12)
+        this.context.fillStyle = "white" //"#99F5D2"
         this.context.clearRect(0, 0, this.width, this.height)
         this.context.fillRect(0, 0, this.width, this.height)
-        this.context.fillStyle = "grey";
+        this.context.save();
+        this.context.fillStyle = "black"
+        this.context.font = "30px Monoton"
+        this.context.fillText(`You got Infected!`, this.width / 3.5, this.height / 3);
+        this.context.save()
+        this.context.font = "22px Montserrat"
+        this.context.fillText(`You lasted ${Math.round(this.seconds/100)} seconds!`, 240, this.height / 2)
+        this.context.fillStyle = "#FF2261"
+        this.context.fillText(`Press the SPACEBAR to play again`, 190, this.height / 1.35);
+        this.context.save();
+        let spaceBarIcon = new Image();
+        spaceBarIcon.src = "images&icons/space-bar-png-6.png"
+        spaceBarIcon.onload = () => this.context.drawImage(spaceBarIcon, 100, this.height / 1.5);
         console.log('You Lost')
     }
 
     animation() {
-        console.log(this.currentLevel)
         this.draw()
         this.update()
         this.animationId = window.requestAnimationFrame(() => {
             if (this.gameOn) {
                 this.animation();
-            }
-            if (this.starsLeft == 0) {
-                this.nextLevel();
-                console.log(this.currentLevel)
-                this.currentLevel++;
-                console.log(this.currentLevel)
-                this.reset()
             }
         })
 

@@ -5,19 +5,59 @@ class Player {
         this.height = game.height;
         this.x = 40;
         this.y = 60;
-        this.r = 20
+        this.r = 27;
         this.speedX = 0;
         this.speedY = 0;
         this.velocity = 4;
     }
 
     draw() {
-        this.context.beginPath();
-        this.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
-        this.context.lineWidth = 3;
-        this.context.fillStyle = "black";
-        this.context.strokeStyle = 'black';
-        this.context.stroke();
+        if (this.r == 16) {
+            this.context.beginPath();
+            this.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+            this.context.lineWidth = 3;
+            let playerIcon = new Image();
+            playerIcon.src = "images&icons/Sick Emoji.png"
+            this.context.fillStyle = "#66ff33";
+            this.context.strokeStyle = 'yellow';
+            this.context.stroke();
+            this.context.drawImage(playerIcon, this.x - this.r, this.y - this.r)
+        }
+        if (this.r == 27) {
+            this.context.beginPath();
+            this.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+            this.context.lineWidth = 3;
+            let playerIcon = new Image();
+            playerIcon.src = "images&icons/Sick Emoji (54).png"
+            this.context.fillStyle = "#66ff33";
+            this.context.strokeStyle = 'yellow';
+            this.context.stroke();
+            this.context.drawImage(playerIcon, this.x - this.r, this.y - this.r)
+        }
+        if (this.r == 30) {
+            this.context.beginPath();
+            this.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+            this.context.lineWidth = 3;
+            let playerIcon = new Image();
+            playerIcon.src = "images&icons/Sick Emoji (60) - cópia.png"
+            this.context.fillStyle = "#66ff33";
+            this.context.strokeStyle = 'yellow';
+            this.context.stroke();
+            this.context.drawImage(playerIcon, this.x - this.r, this.y - this.r)
+        }
+        if (this.r == 33) {
+            this.context.beginPath();
+            this.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+            this.context.lineWidth = 3;
+            let playerIcon = new Image();
+            playerIcon.src = "images&icons/Sick Emoji (66) -.png"
+            this.context.fillStyle = "#66ff33";
+            this.context.strokeStyle = 'yellow';
+            this.context.stroke();
+            this.context.drawImage(playerIcon, this.x - this.r, this.y - this.r)
+        }
+
+
     }
     setControls() {
         window.addEventListener("keydown", event => {

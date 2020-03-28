@@ -3,8 +3,8 @@ class Perks {
         this.context = game.context;
         this.CanvasWidth = game.width;
         this.CanvasHeight = game.height;
-        this.width = 20;
-        this.height = 20;
+        this.width = 32;
+        this.height = 32;
         this.x = Math.floor(Math.random() * this.CanvasWidth)
         this.y = Math.floor(Math.random() * this.CanvasHeight)
         this.type = this.perks[Math.floor(Math.random() * this.perks.length)];
@@ -20,14 +20,20 @@ class Perks {
         }
         if (this.type == this.perks[1]) {
             this.context.save();
-            this.context.fillStyle = "Yellow";
+            let speedImg = new Image();
+            speedImg.src = "images&icons/energia.png"
+            this.context.fillStyle = "transparent"
             this.context.fillRect(this.x, this.y, this.width, this.height)
+            this.context.drawImage(speedImg, this.x, this.y)
             this.context.restore();
         }
         if (this.type == this.perks[2]) {
             this.context.save();
-            this.context.fillStyle = "blue";
+            this.context.fillStyle = "transparent"
+            let ballCutIcon = new Image();
+            ballCutIcon.src = "images&icons/antibacterial-gel.png"
             this.context.fillRect(this.x, this.y, this.width, this.height)
+            this.context.drawImage(ballCutIcon, this.x, this.y)
             this.context.restore();
         }
         if (this.type == this.perks[3]) {
@@ -38,22 +44,39 @@ class Perks {
         }
         if (this.type == this.perks[3]) {
             this.context.save();
-            this.context.fillStyle = "pink";
+            let extraBallIcon = new Image()
+            extraBallIcon.src = "images&icons/attention.png"
+            this.context.fillStyle = "white"
             this.context.fillRect(this.x, this.y, this.width, this.height)
+            this.context.drawImage(extraBallIcon, this.x, this.y)
             this.context.restore();
         }
         if (this.type == this.perks[4]) {
             this.context.save();
-            this.context.fillStyle = "purple";
+            let coughIcon = new Image();
+            coughIcon.src = "images&icons/cough.png";
+            this.context.fillStyle = "transparent";
             this.context.fillRect(this.x, this.y, this.width, this.height)
+            this.context.drawImage(coughIcon, this.x, this.y)
             this.context.restore();
-        }
-        if (this.type == this.perks[5]) {
-            let star = new Image();
-            star.src = "images/1200px-Star_icon_stylized.svg.png"
-            this.context.fillStyle = "white";
+        } // Maybe add one that reduces speed?
+        // if (this.type == this.perks[5]) {
+        //     this.context.save()
+        //     let star = new Image();
+        //     star.src = ""
+        //     this.context.fillStyle = "white";
+        //     this.context.fillRect(this.x, this.y, this.width, this.height)
+        //     this.context.drawImage(star, this.x, this.y)
+        //     this.context.restore()
+        // }
+        if (this.type == this.perks[6]) {
+            this.context.save();
+            let vaccineIcon = new Image()
+            vaccineIcon.src = "images&icons/vaccine.png"
+            this.context.fillStyle = "transparent"
             this.context.fillRect(this.x, this.y, this.width, this.height)
-            this.context.drawImage(star, this.x, this.y)
+            this.context.drawImage(vaccineIcon, this.x, this.y)
+            this.context.restore();
         }
 
 
@@ -84,7 +107,7 @@ class Perks {
             value: 1,
         },
         {
-            name: "Food",
+            name: "cough",
             duration: 3000,
             value: 8,
         },
@@ -94,25 +117,11 @@ class Perks {
             value: 8,
         },
         {
-            name: "Star",
+            name: "clear",
             duration: 3000,
             value: 8,
-        },
-        {
-            name: "Star",
-            duration: 3000,
-            value: 8,
-        },
-        {
-            name: "Star",
-            duration: 3000,
-            value: 8,
-        },
-        {
-            name: "Star",
-            duration: 3000,
-            value: 8,
-        },
+
+        }
     ]
 }
 

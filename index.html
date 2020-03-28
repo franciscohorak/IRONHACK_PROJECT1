@@ -5,15 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <title>Project</title>
 </head>
 
-<body>
-    <canvas width="600px" height="400px"></canvas>
-    <aside class=game>
-        <h1>Test</h1><button class="startButton" type="button">START</button>
-    </aside>
+<body background="images&icons/coronavirus(bg).png">
+    <div>
+        <h1>ESCAPE THE VIRUS</h1>
+        <div class="score">
+            <h3>TIME SURVIVED : </h3>
+            <h2 class="time-count"> 0 </h2>
+        </div>
+    </div>
+    <canvas width="700px" height="500px"></canvas>
 </body>
+<footer>
+    <div class=credits>built by @franciscohorak<br>Icons by <a href="https://www.flaticon.com/br/autores/freepik"
+            title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/br/"
+            title="Flaticon">www.flaticon.com</a></div>
+</footer>
 <script src="/javascripts/obstacles.js"></script>
 <script src="/javascripts/items.js"></script>
 <script src="/javascripts/main.js"></script>
