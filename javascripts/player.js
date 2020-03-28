@@ -100,16 +100,16 @@ class Player {
         this.y += this.speedY;
         ////**** To make the player stay within the canvas limits. Fix the function- the player will still leave the canvas if we keep the key pressed.
         if (this.x - this.r - this.context.lineWidth + 1 < 0) {
-            this.speedX = 0;
+            this.x = 0 + this.r;
         }
         if (this.x + this.r + this.context.lineWidth >= this.width) {
-            this.speedX = 0;
+            this.x = this.width - this.r;
         }
         if (this.y - this.r - this.context.lineWidth + 1 < 0) {
-            this.speedY = 0;
+            this.y = 0 + this.r;
         }
         if (this.y + this.r + this.context.lineWidth + 1 > this.height) {
-            this.speedY = 0;
+            this.y = this.height - this.r;
         }
     }
 }

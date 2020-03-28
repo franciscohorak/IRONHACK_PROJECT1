@@ -5,20 +5,15 @@ class Perks {
         this.CanvasHeight = game.height;
         this.width = 32;
         this.height = 32;
-        this.x = Math.floor(Math.random() * this.CanvasWidth)
-        this.y = Math.floor(Math.random() * this.CanvasHeight)
+        this.x = Math.floor(Math.random() * (this.CanvasWidth-this.width));
+        this.y = Math.floor(Math.random() * (this.CanvasHeight-this.height));
         this.type = this.perks[Math.floor(Math.random() * this.perks.length)];
 
     }
 
     draw() {
+
         if (this.type == this.perks[0]) {
-            this.context.save();
-            this.context.fillStyle = "Green";
-            this.context.fillRect(this.x, this.y, this.width, this.height)
-            this.context.restore();
-        }
-        if (this.type == this.perks[1]) {
             this.context.save();
             let speedImg = new Image();
             speedImg.src = "images&icons/energia.png"
@@ -27,7 +22,7 @@ class Perks {
             this.context.drawImage(speedImg, this.x, this.y)
             this.context.restore();
         }
-        if (this.type == this.perks[2]) {
+        if (this.type == this.perks[1]) {
             this.context.save();
             this.context.fillStyle = "transparent"
             let ballCutIcon = new Image();
@@ -36,13 +31,7 @@ class Perks {
             this.context.drawImage(ballCutIcon, this.x, this.y)
             this.context.restore();
         }
-        if (this.type == this.perks[3]) {
-            this.context.save();
-            this.context.fillStyle = "orange";
-            this.context.fillRect(this.x, this.y, this.width, this.height)
-            this.context.restore();
-        }
-        if (this.type == this.perks[3]) {
+        if (this.type == this.perks[2]) {
             this.context.save();
             let extraBallIcon = new Image()
             extraBallIcon.src = "images&icons/attention.png"
@@ -51,7 +40,7 @@ class Perks {
             this.context.drawImage(extraBallIcon, this.x, this.y)
             this.context.restore();
         }
-        if (this.type == this.perks[4]) {
+        if (this.type == this.perks[3]) {
             this.context.save();
             let coughIcon = new Image();
             coughIcon.src = "images&icons/cough.png";
@@ -59,17 +48,8 @@ class Perks {
             this.context.fillRect(this.x, this.y, this.width, this.height)
             this.context.drawImage(coughIcon, this.x, this.y)
             this.context.restore();
-        } // Maybe add one that reduces speed?
-        // if (this.type == this.perks[5]) {
-        //     this.context.save()
-        //     let star = new Image();
-        //     star.src = ""
-        //     this.context.fillStyle = "white";
-        //     this.context.fillRect(this.x, this.y, this.width, this.height)
-        //     this.context.drawImage(star, this.x, this.y)
-        //     this.context.restore()
-        // }
-        if (this.type == this.perks[6]) {
+        } 
+        if (this.type == this.perks[4]) {
             this.context.save();
             let vaccineIcon = new Image()
             vaccineIcon.src = "images&icons/vaccine.png"
@@ -88,10 +68,10 @@ class Perks {
 
 
     perks = [{ // Stores all the items that can randomly be placed in the canvas
-            name: "Extra Life",
-            duration: 2000, // in miliseconds;
-            value: 1
-        }, {
+            //         name: "Extra Life",
+            //         duration: 2000, // in miliseconds;
+            //         value: 1
+            //     }, {
             name: "Speed",
             duration: 3000,
             value: 1,
@@ -111,11 +91,11 @@ class Perks {
             duration: 3000,
             value: 8,
         },
-        {
-            name: "Star",
-            duration: 3000,
-            value: 8,
-        },
+        // {
+        //     name: "Star",
+        //     duration: 3000,
+        //     value: 8,
+        // },
         {
             name: "clear",
             duration: 3000,

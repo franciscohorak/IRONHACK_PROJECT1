@@ -14,6 +14,8 @@ class Game {
         this.seconds = 0;
         // this.currentLevel = 2;
         this.gameOn = true;
+        this.sound = new Audio();
+        this.sound.src = "audio/GAMEOVER.mp3"
         this.extraLives = 1;
         this.particlesSizes = [8, 12, 16, 16, 16, 32, 32]
     }
@@ -70,8 +72,10 @@ class Game {
     }
     start() {
         this.animation();
-
+        document.getElementById('backgroundMusic').play();
+        this.sound.pause();
     }
+
     draw() {
         this.context.clearRect(0, 0, this.width, this.height)
         this.player.draw();
@@ -88,23 +92,17 @@ class Game {
         }
 
     }
-    //******* */ Try to figure out a way to first draw the ball in the canvas and only 2 seconds after it starts moving.
-    // startMovement() {
-    //     for (let j = 0; j < this.obstacles.length; j++) {
-    //         this.obstacles[i].update(this.obstacles);
-    //     }
-    // }
 
     launchBall() {
         for (let i = 0; this.obstacles.length < this.ballsInPlay; i++) {
-            let x = Math.random() * this.width;
-            let y = Math.random() * this.height;
+            let x = Math.floor(Math.random() * this.width);
+            let y = Math.floor(Math.random() * this.height)
             let r = this.particlesSizes[Math.floor(Math.random() * this.particlesSizes.length)]
             if (i !== 0) {
                 for (let j = 0; j < this.obstacles.length; j++) {
                     if (this.getDistance(this.x, this.y, this.obstacles[j].x, this.obstacles[j].y) - this.r * 2 < 0) { // so that when launching a new ball into the game, it doesn't appear in the same x and y position of a ball already in the canvas
-                        x = Math.random() * this.width;
-                        y = Math.random() * this.height;
+                        x = Math.floor(Math.random() * this.width);
+                        y = Math.floor(Math.random() * this.height);
                         j = -1;
                     }
                 }
@@ -138,6 +136,7 @@ class Game {
         this.timeCount();
         this.checkForItem();
         this.checkPlayerCrash();
+        if (!this.gameOn) document.getElementById('backgroundMusic').pause()
     }
     timeCount() {
         this.seconds += 1
@@ -185,7 +184,7 @@ class Game {
                     if (this.player.r == 66) {
                         this.player.r += 1;
                     } else {
-                        this.player.r += 3; //this.itemsAvailable[i].type.value;
+                        this.player.r = this.player.r; //this.itemsAvailable[i].type.value;
                     }
                     break;
                 }
@@ -218,6 +217,7 @@ class Game {
 
     gameOver() {
         this.context.save()
+        this.sound.play();
         this.gameOn = false
         let gameOverIcon = new Image();
         gameOverIcon.src = "images&icons/Face With Thermometer Emoji (80).png"
@@ -239,6 +239,7 @@ class Game {
         spaceBarIcon.src = "images&icons/space-bar-png-6.png"
         spaceBarIcon.onload = () => this.context.drawImage(spaceBarIcon, 100, this.height / 1.5);
         console.log('You Lost')
+        document.getElementById('backgroundMusic').pause()
     }
 
     animation() {
@@ -251,6 +252,7 @@ class Game {
         })
 
     }
+
     reset() {
         this.player.setControls();
         this.frame = 0;
